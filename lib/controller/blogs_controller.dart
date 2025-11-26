@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:responsi/models/blogs_models.dart';
+import 'package:responsi/models/articles_models.dart';
 import 'package:responsi/service/wrapper.dart';
 
 class BlogsController {
   final Wrapper _wrapper;
   BlogsController(this._wrapper);
 
-  Future<List<BlogsModels>> getBlogs() async {
+  Future<List<ArticlesModels>> getBlogs() async {
     final response = await _wrapper.fetchBlogs();
 
     if (response.statusCode != 200) {
@@ -16,9 +16,9 @@ class BlogsController {
     }
 
     final Map<String, dynamic> data = jsonDecode(response.body);
-    final List<dynamic> articleData = data['results'];
+    final blogData = data['results'] as List;
 
-    return articleData.map((e) => BlogsModels.fromJson(e)).toList();
+    return blogData.map((e) => ArticlesModels.fromJson(e)).toList();
   }
 }
 
@@ -27,7 +27,7 @@ class BlogsView extends ChangeNotifier {
   BlogsView(this._controller);
 
   bool isLoading = false;
-  List<BlogsModels> blogs = [];
+  List<ArticlesModels> blogs = [];
 
   Future<void> getBlogs() async {
     isLoading = true;
@@ -36,7 +36,10 @@ class BlogsView extends ChangeNotifier {
     try {
       blogs = await _controller.getBlogs();
     } catch (e) {
-      throw Exception("Gagal Load Artikel: $e");
+      throw Exception("Gagal Load Blog: $e");
+    } finally {
+      isLoading = false;
+      notifyListeners();
     }
   }
 }

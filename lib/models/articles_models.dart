@@ -21,12 +21,12 @@ class ArticlesModels {
     return ArticlesModels(
       id: json['id'],
       title: json['title'],
-      author: (json['author'] as List<dynamic>)
+      author: (json['authors'] as List<dynamic>)
           .map((e) => Author.fromJson(e))
           .toList(),
       url: json['url'],
-      imgUrl: json['imgUrl'],
-      newsSite: json['newsSite'],
+      imgUrl: json['image_url'],
+      newsSite: json['news_site'],
       summary: json['summary'],
     );
   }
@@ -34,22 +34,22 @@ class ArticlesModels {
 
 class Author {
   final String name;
-  final List<Social> social;
+  final Social? social;
 
   Author({required this.name, required this.social});
 
   factory Author.fromJson(Map<String, dynamic> json) {
     return Author(
       name: json['name'],
-      social: (json['social'] as List<dynamic>)
-          .map((e) => Social.fromJson(e))
-          .toList(),
+      social: json['socials'] != null 
+          ? Social.fromJson(json['socials']) 
+          : null,
     );
   }
 }
 
 class Social {
-  final String X;
+  final String x;
   final String youtube;
   final String instagram;
   final String linkedin;
@@ -57,7 +57,7 @@ class Social {
   final String bluesky;
 
   Social({
-    required this.X,
+    required this.x,
     required this.youtube,
     required this.instagram,
     required this.linkedin,
@@ -67,7 +67,7 @@ class Social {
 
   factory Social.fromJson(Map<String, dynamic> json) {
     return Social(
-      X: json['X'],
+      x: json['x'],
       youtube: json['youtube'],
       instagram: json['instagram'],
       linkedin: json['linkedin'],

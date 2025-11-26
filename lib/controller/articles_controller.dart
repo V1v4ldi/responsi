@@ -16,7 +16,7 @@ class ArticlesController {
     }
 
     final Map<String, dynamic> data = jsonDecode(response.body);
-    final List<dynamic> articleData = data['results'];
+    final articleData = data['results'] as List;
 
     return articleData.map((e) => ArticlesModels.fromJson(e)).toList();
   }

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:responsi/core/provider.dart';
 import 'package:responsi/view/home.dart';
 import 'package:provider/provider.dart';
+import 'package:responsi/view/login.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const Home(),
+      home: const LoginPage(),
       )
     );
   }
