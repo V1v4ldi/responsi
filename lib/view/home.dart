@@ -8,9 +8,12 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ArticlesView>().getArticles();
-    });
+    Future.microtask(
+        () => Provider.of<ArticlesView>(
+          context,
+          listen: false,
+        ).getArticles(),
+      );
     return _HomeContent();
   }
 }

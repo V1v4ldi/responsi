@@ -37,6 +37,9 @@ class ArticlesView extends ChangeNotifier {
       articles = await _controller.getArticles();
     } catch (e) {
       throw Exception("Gagal Load Artikel: $e");
+    } finally {
+      isLoading = false;
+      notifyListeners();
     }
   }
 }

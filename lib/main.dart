@@ -11,7 +11,7 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]).then((_) {
-    runApp(const MaterialApp(home: Home()));
+    runApp(const MaterialApp(home: MyApp()));
   });
 }
 
